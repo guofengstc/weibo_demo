@@ -7,6 +7,9 @@ gem 'rails', '3.2.9'
 
 gem 'sqlite3'
 
+gem 'pry'
+gem 'pry-nav'
+gem 'pry-stack_explorer' # 如果不查看方法栈，可以省略
 
 # Gems used only for assets and not required
 # in production environments by default.
