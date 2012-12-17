@@ -1,0 +1,268 @@
+<html>
+
+<head>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"type="text/javascript"></script>
+<script type="text/javascript">
+
+	$.getJSON("https://maps.googleapis.com/maps/api/geocode/json?address=shenzhen&sensor=true", function(data){
+		alert(data.status);
+	});
+
+</script> -->
+<style type="text/css">
+	ul {
+		margin:0 auto;
+		list-style : none;
+		padding: 0;
+		padding-left:5px;
+	}
+	ul li {
+		float:left;
+		border:0px solid #F00;
+	}
+
+	#top  {
+		float: left;
+		margin-bottom: 5px;
+		padding:0px;
+		width:100%;
+		border:0px solid #F00;
+		height:25px;
+	}
+	#tree {
+		float: left;
+
+		padding:0;
+		border:0px solid #F00;
+		width:30%;
+		height:400px;
+	}
+	#tree ul li {
+		float:left;
+		border:0px solid #F00;
+		cursor: hand;
+	}
+	#map {
+		float: left;
+		margin-left: 5px;
+		padding:0;
+		border:0px solid #F00;
+		width:500px;
+		height:400px;
+	}
+
+</style>
+<script>
+var markers = [];
+var latLngs = new Array();
+// var neighborhoods = [
+//   new google.maps.LatLng(52.511467, 13.447179),
+//   new google.maps.LatLng(52.549061, 13.422975),
+//   new google.maps.LatLng(52.497622, 13.396110),
+//   new google.maps.LatLng(52.517683, 13.394393)
+// ];
+var iterator = 0;
+function createXmlHttp(){
+	if (window.XMLHttpRequest)
+	{
+		xmlHttp=new XMLHttpRequest();
+	}else{
+		xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	return xmlHttp;
+}
+function getJsonObj(pos){
+	var xmlHttp = createXmlHttp();
+	var URL = "https://maps.googleapis.com/maps/api/geocode/json?address="+pos+"&sensor=true";
+	
+	//document.getElementById("content").innerHTML = URL;
+	xmlHttp.open("GET",URL,true);
+	xmlHttp.setRequestHeader("Accept", "application/json");
+	xmlHttp.onreadystatechange=function(){
+			if (xmlHttp.readyState==4 && xmlHttp.status==200){
+
+				var content = xmlHttp.responseText;
+				//alert(content)
+				eval("var obj = " + content);
+				//document.getElementById("content").innerHTML = content;
+				// alert(typeof(obj))
+				// if(obj.status)
+				// alert(obj);
+				
+				addTreeData(getPosition(obj));
+				
+			}
+	};
+
+	xmlHttp.send();
+	
+}
+
+var initLatLng = new google.maps.LatLng(22.5430990,114.0578680);
+
+function getPosition(objData){
+	// var str = "["
+	var neighborhoods = new Array();
+	if(objData.status=="OK"){
+		for(i=0;i<objData.results.length;i++){
+			address=objData.results[i].formatted_address;
+			locan=objData.results[i].geometry["location"];
+			lat=locan.lat
+			lng=locan.lng
+			//addNeighborhoods(lat,lng);
+			// str = str + (i==0)?'':',' + '{"address":address,"lat":lat,"lng":lng}';
+			str = '{"address":'+'"'+address+'"'+',"position":'+'{"lat":'+lat+',"lng":'+lng+'}}';
+			//alert(str)
+			eval('var obj = ' + str);
+			//alert(obj.position);
+			//neighborhoods.push(obj)
+			neighborhoods[i]=obj;
+			//alert(neighborhoods[i])
+		}
+		// var str = "]"
+	}
+	
+	return neighborhoods;
+}
+function addTreeData(neighborhoods){
+	/*
+	console.log("1111111");
+	var $ul = $("#tree");
+	for(i=0; i< [1, 3, 5].length; i++){
+		$("<li>").attr("lat", "1")
+			.attr("lng", "2").appendTo($ul)
+	}
+	console.log($ul.html());
+	alert(document.getElementById("#tree").innerHTML)
+	*/
+	var tree = document.getElementById("tree");
+	var ul =tree.appendChild(document.createElement("ul"));
+	for(i=0;i<neighborhoods.length;i++){
+		var position = neighborhoods[i]["position"];
+		var li = document.createElement("li");
+		li.setAttribute("id","list_"+i);
+		li.setAttribute("onclick","drop('list_"+i+"')");
+		li.setAttribute("lat",position.lat);
+		li.setAttribute("lng",position.lng);
+		//li.text = (i+1) + neighborhoods[i]["address"]
+		//str = "<a onclick='drop()' lat="+lat+" lng="+lng+"'>"+(i+1)+". "+formatted_address+"</a>";
+		//var li = document.createElement(str);
+		li.innerHTML = (i+1)+". "+neighborhoods[i]["address"]
+		ul.appendChild(li);
+		// addMarker(position.lat, position.lng);
+	}
+	//alert(tree.innerHTML)
+	
+
+	// alert(objData.status=="OK")
+	// alert(objData.results[0].geometry.location.lat);
+	//var li = document.createElement("li");
+	//alert(document.getElementById("tree").innerHTML);
+	//div.innerHTML=123123;
+	
+	
+}
+
+
+// function addNeighborhoods(lat,lng){
+// 	neighborhoods.push(new google.maps.LatLng(lat, lng));
+// }
+function drop(id) {
+	//var position = new google.maps.LatLng(52.511467, 13.447179),
+	//var obj = document.getElementById(id);
+	var lat = event.srcElement.getAttribute("lat");
+	var lng = event.srcElement.getAttribute("lng");
+	addMarker(lat,lng);
+	addLatLngs(lat,lng);
+
+}
+function addLatLngs(lat,lng){
+	latLngs.push(new google.maps.LatLng(lat,lng));
+}
+function addMarker(lat,lng) {
+	var maps_LatLng = new google.maps.LatLng(lat,lng);
+	//alert(maps_LatLng);
+	markers.push(new google.maps.Marker({
+		position: maps_LatLng,
+		map: map,
+		draggable: false,
+		animation: google.maps.Animation.DROP
+		})
+	);
+  // iterator++;
+}
+var map;
+function initialize() {
+	var mapOptions = {
+	zoom: 12,
+	mapTypeId: google.maps.MapTypeId.ROADMAP,
+	center: initLatLng
+	};
+
+	map = new google.maps.Map(document.getElementById('map'),
+	      mapOptions);
+	//requestJSONData();
+	google.maps.event.addListener(map, 'click', function(e) {
+	  placeMarker((e.latLng), map);
+	});
+}
+
+function search(id){
+	// alert(document.getElementById(id).value)
+	obj = document.getElementById(id);
+	//obj.removeChild()
+	getJsonObj(obj.value);
+	tree = document.getElementById("tree");
+	tree.innerHTML="";
+	// alert(tree.innerHTML)
+	// for(node in (tree.childNodes){
+	// 	alert(node)
+	// }
+}
+
+function drawLine(){
+	// var latLngs = [
+	//     new google.maps.LatLng(37.772323, -122.214897),
+	//     new google.maps.LatLng(21.291982, -157.821856),
+	//     new google.maps.LatLng(-18.142599, 178.431),
+	//     new google.maps.LatLng(-27.46758, 153.027892)
+	// ];
+	var poly_line = new google.maps.Polyline({
+	  path: latLngs,
+	  strokeColor: '#FF0000',
+	  strokeOpacity: 1.0,
+	  strokeWeight: 2
+	});
+	poly_line.setMap(map);
+}
+// $(function(){
+// 	console.log("1111111");
+// 	addTreeData();
+// });
+function placeMarker(position, map) {
+  var marker = new google.maps.Marker({
+    position: position,
+    map: map
+  });
+  map.panTo(position);
+  addLatLngs(position.Za,position.$a);
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+</head>
+<!-- <body onload="initialize()"> -->
+<body>
+	<div id="content"></div>
+	<div id="top">
+		<ul>
+			<li><input id="i_search" type="text" class="i_search"></li>
+			<li><button id="search" onclick="search('i_search')">Search</button></li>
+			<li><button id="drawLine" onclick="drawLine()">DrawLine</button></li>
+		</ul>
+	</div>
+	<div id="tree">
+	</div>
+	<div id="map"></div>
+</body>
+</html>
