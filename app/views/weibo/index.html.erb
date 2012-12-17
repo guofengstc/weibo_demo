@@ -1,0 +1,18 @@
+<% if @user %>
+  <form method="post" action="/post" class="well form-inline center" style="text-align:center;">
+    <textarea name="post" cols="600" rows="5" class="span8"></textarea><br/><br/>
+    <button type="submit" class="btn btn-success"><i class="icon-edit"></i>發言</button>
+  </form>
+  <% if @statuses %>
+  <% @statuses.statuses.each do |s| %>
+	  <div class="row">
+      <div class="span12">
+      	  <h4><%= s.user.screen_name %> 说</h4>
+      	  <p><%= s.text %></p>
+    	</div>
+      <%= s %>
+    </div>
+  <% end %>
+  <% end %>
+<% end %>
+  

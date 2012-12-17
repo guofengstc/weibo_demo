@@ -1,0 +1,79 @@
+<div class="row" style="background-color: #ccc">
+  <!-- <div class="span4">
+    <ul class="nav nav-list bs-docs-sidenav affix">
+      <li class="active"><a href="#"><i class="icon-chevron-right"></i>Index</a></li>
+      <li><a href="#">Library</a></li>
+      <li class="divider"></li>
+      <li><a href="#">Home</a></li>
+    </ul>
+  </div> -->
+  <div class="span3">
+    <div class="bs-docs-sidenav affix">
+      <div class="row" style="padding: 12px;">
+        <div class="span3">
+            <a href="http://www.weibo.com/u/2036924495">
+              <img width="32" height="32" usercard="id=2036924495" title="刘坚--1127" src="http://tp4.sinaimg.cn/2036924495/50/5603208737/1" alt="刘坚--1127">
+              <b>刘坚--1127</b>
+            </a>
+        </div>
+      </div>
+      <hr/>
+      <div class="row stats">
+        <div class="span1">
+            <a href="http://www.weibo.com/u/2036924495">
+              <strong>1123</strong>
+              关注
+            </a>
+        </div>
+        <div class="span1">
+            <a href="http://www.weibo.com/u/2036924495">
+              <strong>223</strong>
+              粉丝
+            </a>
+        </div>
+        <div class="span1">
+            <a href="http://www.weibo.com/u/2036924495">
+              <strong>2230</strong>
+              微博
+            </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="span8">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span4">
+        <h1>粉丝列表</h1>
+        <% @followers.users.each do |fs| %>
+          <div class="row">
+            <div class="span4 offset1">
+              <a href="http://www.weibo.com/<%= fs.profile_url %>">
+                <p><%= fs.screen_name %></p>
+                <img width="50" height="50" alt="<%= fs.screen_name %>" src="<%= fs.profile_image_url %>" title="<%= fs.screen_name %>" usercard="id=<%= fs.id %>">
+              </a>
+            </div>
+          </div>
+          <br/>
+        <% end %>
+        </div>
+        <div class="span4">
+        <h1>hufen列表</h1>
+        <% @friends.users.each do |fs| %>
+          <div class="row">
+            <div class="span4 offset1">
+              <a href="http://www.weibo.com/<%= fs.profile_url %>">
+                <p><%= fs.screen_name %></p>
+                <img width="50" height="50" alt="<%= fs.screen_name %>" src="<%= fs.profile_image_url %>" title="<%= fs.screen_name %>" usercard="id=<%= fs.id %>">
+              </a>
+            </div>
+          </div>
+          <br/>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
