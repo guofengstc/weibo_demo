@@ -1,0 +1,12 @@
+<a href="<%= '#{weibo_base_url}#{current_user.profile_url}' %>">
+	<%= link_to image_tag("#{current_user.profile_image_url}", alt: "我的微博"), '#{current_user.screen_name}' %>
+</a>
+<h1>
+  <%= current_user.screen_name %>
+</h1>
+<span>
+  <%= link_to "view my profile", '#{weibo_base_url}#{current_user.profile_url}' %>
+</span>
+<span>
+<a>关注:<%= counts[0].friends_count if counts.size>0 %></a>  <a>朋友:<%= counts[0].followers_count if counts.size>0 %></a>  <a>微博:<%= counts[0].statuses_count if counts.size>0 %>
+</span>

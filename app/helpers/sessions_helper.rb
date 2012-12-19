@@ -9,7 +9,8 @@ module SessionsHelper
 	end
 	
 	def signed_in?
-	  !session[:uid].nil?
+		# binding.pry
+		!session[:uid].nil?
 	end
 =begin
 

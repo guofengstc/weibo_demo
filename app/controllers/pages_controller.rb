@@ -2,7 +2,6 @@ class PagesController < ApplicationController
   def index
     # binding.pry
   	if session[:uid]
-    	@user = user
 
       res = conn.get do |req|
         req.url '/2/statuses/friends_timeline.json'
@@ -14,7 +13,6 @@ class PagesController < ApplicationController
   end
 
   def place
-    @user = user
     res = conn.get do |req|
       req.url '/2/place/friends_timeline.json'
       req.params['access_token'] = session[:access_token]
@@ -24,8 +22,7 @@ class PagesController < ApplicationController
 
   def home
     if session[:uid]
-      @user = user
-      
+      # binding.pry
       @followers = hashie friendships('followers.json',session[:uid],session[:access_token])
 
       @friends = hashie friendships('friends/bilateral.json',session[:uid], session[:access_token]) 
@@ -58,31 +55,8 @@ class PagesController < ApplicationController
     redirect_to '/'
   end
 
-  def logout
-  	session[:uid] = nil
-    cookies.delete(:access_token)
-  	redirect_to '/'
-  end
-
   protected
 
-  def conn
-    conn = Faraday.new(:url => 'https://api.weibo.com') do |faraday|
-      faraday.request :url_encoded
-      faraday.response :logger
-      faraday.adapter Faraday.default_adapter
-    end
-  end
-
-  def hashie(response)
-    # binding.pry
-    json_body = JSON.parse(response.body)
-      if json_body.is_a? Array
-        Array.new(json_body.count){|i| Hashie::Mash.new(json_body[i])}
-      else
-        Hashie::Mash.new json_body
-      end
-  end
 
   def friendships(url,uid,access_token)
   	fs = conn.get do |req|

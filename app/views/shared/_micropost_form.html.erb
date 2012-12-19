@@ -1,0 +1,9 @@
+<ul>
+	<%= user_timeline.statuses.map do |f| %>
+	<li>
+	<span class="content">
+		<%= f.text %>
+	</span>
+	</li>
+<% end %>
+</ul>

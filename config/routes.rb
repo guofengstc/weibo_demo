@@ -1,8 +1,8 @@
 WeiboDemo::Application.routes.draw do
   match '/home',      to: 'pages#home'
   match '/signin',    to: 'sessions#create'
-  match '/callback',  to: 'weibo#callback'
-  match '/logout',    to: 'weibo#logout'
+  match '/callback',  to: 'sessions#callback'
+  match '/signout',   to: 'sessions#destroy'
   match '/post',      to: 'weibo#post'
   match '/place',     to: 'weibo#place'
 

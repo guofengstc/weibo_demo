@@ -66,7 +66,7 @@ class WeiboController < ApplicationController
     
   	session[:uid] = mres.uid
   	session[:access_token] = mres.access_token
-  	session[:expires_at] = mres.expires_at
+  	session[:expires_in] = mres.expires_in
 
     redirect_to '/'
   end

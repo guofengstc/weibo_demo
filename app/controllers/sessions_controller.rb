@@ -3,7 +3,8 @@ class SessionsController < ApplicationController
 
 	end
 	def create
-    	authorize_url = "https://api.weibo.com/oauth2/authorize?client_id=274485643&response_type=code&redirect_uri=http://172.18.6.13/callback"
+
+    	authorize_url = "https://api.weibo.com/oauth2/authorize?client_id=274485643&response_type=code&redirect_uri=http://127.0.0.1/callback&forcelogin=true"
   		redirect_to authorize_url
 	end
 
@@ -14,14 +15,14 @@ class SessionsController < ApplicationController
 	end
 
 	def callback
-	   
-		mresp=conn.post '/oauth2/access_token',{:client_id => '274485643', :client_secret => 'b627824c0d800e238ad9088cd51d2390', :grant_type => 'authorization_code', :code => "#{params[:code].to_s}", :redirect_uri => 'http://172.18.6.13/callback'}
-		# https://api.weibo.com/oauth2/access_token?client_id=274485643&client_secret=b627824c0d800e238ad9088cd51d2390&grant_type=authorization_code&redirect_uri=http://172.18.6.13/callback&code=
+	    # binding.pry
+		mresp=conn.post '/oauth2/access_token',{:client_id => '274485643', :client_secret => 'b627824c0d800e238ad9088cd51d2390', :grant_type => 'authorization_code', :code => "#{params[:code].to_s}", :redirect_uri => 'http://127.0.0.1/callback'}
+		# https://api.weibo.com/oauth2/access_token?client_id=274485643&client_secret=b627824c0d800e238ad9088cd51d2390&grant_type=authorization_code&redirect_uri=http://127.0.0.1/callback&code=
 		mres = hashie mresp
 
 		session[:uid] = mres.uid
 		session[:access_token] = mres.access_token
-		session[:expires_at] = mres.expires_at
+		session[:expires_in] = mres.expires_in
 
 		redirect_to '/'
 	end

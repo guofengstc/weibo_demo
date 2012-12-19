@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Sina MicroPosts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script> -->
+    <script type="text/javascript" src="../../assets/javascripts/jquery.js"></script>
+    <!-- <script type="text/javascript" src="../../assets/javascripts/footprints.js"></script> -->
+    <!-- Le styles -->
+    <link href="../../assets/stylesheets/bootstrap.css" rel="stylesheet">
+    <link href="../../assets/stylesheets/bootstrap-responsive.css" rel="stylesheet">
+    <link href="../../assets/stylesheets/footprints.css" rel="stylesheet">
+    <style type="text/css">
+    .span3.5 {
+      display: block;
+      float: left;
+      width: 224px;
+
+    }
+    </style>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Project name</a>
+          <div class="nav-collapse collapse">
+            <p class="navbar-text pull-right">
+              Logged in as <a href="#" class="navbar-link">Username</a>
+            </p>
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+
+<!--       <div class="row-fluid">
+  <div class="span12 hero-unit">
+    <div class="input-append">
+      <div id="tree" class="btn-group">
+      </div>
+      <input id="i_search" class="span6" id="appendedInputButtons" type="text" onkeypress="enterKeyPress(event)">
+      <button id="search" class="btn" type="button" onclick="search('i_search')">Search</button>
+      <button id="drawLine" class="btn btn-success" onclick="toggle()">SearchList</button>
+      <button id="drawLine" class="btn btn-success" onclick="drawLine()">DrawLine</button>
+    </div>
+    <div id="googlemap"></div>
+  </div>
+</div> -->
+
+      <div class="row-fluid">
+<!--         <div class="span9">
+  <div class="row-fluid">
+    <div class="span thumbnail">
+      <div>
+          <div class="span3"><img alt="220x200" style="width: 220px; height: 200px; " src=""></div>
+          <div class="span6">
+            <h2>Heading</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p><a class="btn" href="#">View details &raquo;</a></p>
+          </div>
+      </div>
+    </div>/span
+  </div>/row
+  <div class="row-fluid">
+    <div class="span thumbnail">
+      <div>
+          <div class="span3"><img alt="220x200" style="width: 220px; height: 200px; " src=""></div>
+          <div class="span6">
+            <h2>Heading</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p><a class="btn" href="#">View details &raquo;</a></p>
+          </div>
+      </div>
+    </div>/span
+  </div>/row
+</div>/span -->
+
+        <div class="span9" style="margin:0px auto" id="mainbar">
+          <section class="box no-padding" id="topics">
+            <table class="item-list">
+              <tbody>
+                <tr id="topic-740">
+                  <td class="avatar">
+                    <a href="/~xiaoronglv"><img alt="" src="../../assets/images/rails.png"></a>
+                  </td>
+                  <td class="content">
+                    <h3>
+                      <a href="#">
+                        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                        <a class="btn" href="#">View details &raquo;</a></p>
+                      </a>
+                    </h3>
+                    <div class="info">
+                      <span class="author">
+                        <a href="#">author</a>
+                      </span>
+                      <span class="time">
+                        创建于
+                        <time datetime="2012-11-22T15:40:09+00:00" title="2012年11月22日 星期四 15:40:09 UTC">2012-11-22</time>
+                      </span>
+                    </div>
+                  </td>
+                  <td class="reply-count last">
+                    <a href="#">8</a>
+                  </td>
+                </tr>
+
+                <tr id="topic-740">
+                  <td class="avatar">
+                    <a href="/~xiaoronglv"><img alt="" src="../../assets/images/rails.png"></a>
+                  </td>
+                  <td class="content">
+                    <h3>
+                      <a href="#">
+                        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                        <a class="btn" href="#">View details &raquo;</a></p>
+                      </a>
+                    </h3>
+                    <div class="info">
+                      <span class="author">
+                        <a href="#">author</a>
+                      </span>
+                      <span class="time">
+                        创建于
+                        <time datetime="2012-11-22T15:40:09+00:00" title="2012年11月22日 星期四 15:40:09 UTC">2012-11-22</time>
+                      </span>
+                    </div>
+                  </td>
+                  <td class="reply-count last">
+                    <a href="#">8</a>
+                  </td>
+                </tr>
+
+                <tr id="topic-740">
+                  <td class="avatar">
+                    <a href="/~xiaoronglv"><img alt="" src="../../assets/images/rails.png"></a>
+                  </td>
+                  <td class="content">
+                    <h3>
+                      <a href="#">
+                        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                        <a class="btn" href="#">View details &raquo;</a></p>
+                      </a>
+                    </h3>
+                    <div class="info">
+                      <span class="author">
+                        <a href="#">author</a>
+                      </span>
+                      <span class="time">
+                        创建于
+                        <time datetime="2012-11-22T15:40:09+00:00" title="2012年11月22日 星期四 15:40:09 UTC">2012-11-22</time>
+                      </span>
+                    </div>
+                  </td>
+                  <td class="reply-count last">
+                    <a href="#">8</a>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </section>
+          
+        </div>
+
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Sidebar</li>
+              <li class="active"><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li class="nav-header">Sidebar</li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li class="nav-header">Sidebar</li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>&copy; Company 2012</p>
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+  </body>
+</html>
